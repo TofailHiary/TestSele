@@ -5,4 +5,48 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>AppTest</name>
   <description>For Test </description>
+
+	
+
+<dependencies>
+<!-- https://mvnrepository.com/artifact/io.appium/java-client -->
+<dependency>
+    <groupId>io.appium</groupId>
+    <artifactId>java-client</artifactId>
+    <version>7.0.0</version>
+</dependency>
+<dependency>
+						<groupId>org.seleniumhq.selenium</groupId>
+						<artifactId>selenium-java</artifactId>
+						<version>3.14.0</version>
+						<exclusions>
+							<exclusion>
+								<groupId>com.google.guava</groupId>
+								<artifactId>guava</artifactId>
+							</exclusion>
+						</exclusions>
+					</dependency>
+ <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-api</artifactId>
+      <version>3.14.0</version>
+      <classifier></classifier>
+    </dependency>
+  
+  <dependency>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>selenium-remote-driver</artifactId>
+    <version>3.14.0</version>
+</dependency>
+
+	 <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+</dependency>
+	
+</dependencies>		
+
+
 </project>
+	
