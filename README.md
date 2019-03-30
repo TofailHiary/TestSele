@@ -8,7 +8,7 @@ This created for Test Android app , Selendroid test app
 --eclips 
 --Simulator ex. Genymotion 
 -I created Maven project  for this assignment 
--We can add the following capabilities and the same  Test cases will run on IOS :
+-We can add the following capabilities and the same  Test cases will run on IOS in case the accessbilityid OR id are same :
   -udid=for device / simulator we will rung on it , you can find it  in xcode 
   -platformName=iOS
   - automationName=XCUITest 
@@ -28,4 +28,4 @@ This created for Test Android app , Selendroid test app
 
 -Each Test annotation has a comment to explain what this test case tests 
 
-  
+-
