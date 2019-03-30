@@ -9,7 +9,7 @@ This created for Test Android app , Selendroid test app
 --Simulator ex. Genymotion 
 -I created Maven project  for this assignment 
 -We can add the following capabilities and the same  Test cases will run on IOS in case the accessbilityid OR id are same :
-  -udid=for device / simulator we will rung on it , you can find it  in xcode 
+  -udid=for device / simulator you will run the test on it , you can find it  in xcode 
   -platformName=iOS
   - automationName=XCUITest 
   -xcodeConfigFile: /Users/hmcconnell/Resign/appium.xcconfig 
