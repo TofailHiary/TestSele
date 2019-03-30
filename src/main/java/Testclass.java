@@ -6,7 +6,11 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import static org.junit.Assert.*;
-
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
 public class Testclass {
@@ -24,67 +28,80 @@ public class Testclass {
     capabilities.setCapability("deviceName", "192.168.45.101:5555");
     capabilities.setCapability( "appPackage", "io.selendroid.testapp");
     capabilities.setCapability("appActivity", "io.selendroid.testapp.HomeScreenActivity");
-   
     capabilities.setCapability("platformVersion", "6.0");
-    capabilities.setCapability("app", "/Users/apple/Desktop/GoldenScent.app");
-  
+    capabilities.setCapability("app","C:/Users/Tofail/Desktop/selendroid-test-app-0.17.0.apk");
+    //put the correct application in your machine
     driver = new AppiumDriver<MobileElement>(new URL(url), capabilities);
-    Thread.sleep(5000);
-
-
     }
-  @Test
-  // to check share and like action in case user is logged out 
-  public  void ShareandLike() {
-		 driver.findElementByAccessibilityId("product1").click();
-		 driver.findElementByAccessibilityId("share").click();
-		 assertTrue(driver.findElementByAccessibilityId("sharePopUp").isDisplayed());
-		 driver.findElementByAccessibilityId("cancel").click();
-		 driver.findElementByAccessibilityId("Like").click();
-		 assertTrue(driver.findElementByAccessibilityId("login").isDisplayed() && driver.findElementByAccessibilityId("signup").isDisplayed());
-		 driver.findElementByAccessibilityId("xbutton").click();
-		 assertTrue(driver.findElementByAccessibilityId("share").isDisplayed());
-		 
-	}
-  
-  @Test
-  //to check add to cart action with different sizes 
-  public  void addtoCartandSize() {
-	  MobileElement product = driver.findElementByAccessibilityId("product1");
-	  MobileElement addtocart = driver.findElementByXPath("Set your xpath here");
-	  MobileElement continueshopping = driver.findElementByXPath("Set your xpath here");
-	  MobileElement radioSizeButton = driver.findElementByXPath("Set your xpath here");
-	  MobileElement awesomChoise = driver.findElementByXPath("Set your xpath here");
-	  product.click();
-	  addtocart.click();
-	  assertTrue(continueshopping.isDisplayed());
-	  continueshopping.click();
-	  radioSizeButton.click();
-	  addtocart.click();
-	  assertTrue(continueshopping.isDisplayed());
-	  assertEquals(awesomChoise.getText().toString(), "Awesome choice!");
-	}
-  
-  @Test
-  //to check currency is match the selected country 
-  public  void Currency() {
-	  MobileElement product = driver.findElementByAccessibilityId("product1");
-	  MobileElement profile = driver.findElementByAccessibilityId("profile");
-	  MobileElement countryandlanguage = driver.findElementByAccessibilityId("country and language");
-	  MobileElement UAE = driver.findElementByAccessibilityId("united arab emirates");
-	  MobileElement apply = driver.findElementByAccessibilityId("apply");
-	  MobileElement Currency = driver.findElementByAccessibilityId("Currency");
-	  profile.click();
-	  countryandlanguage.click();
-	  UAE.click();
-	  apply.click();
-	  product.click();
-	  String CurrencyUAE=Currency.getText().toString();
-	  assertEquals(CurrencyUAE, "AED");
-	  
-	}
   @After 
   public  void Close(){
 	  driver.quit();
   }
+  
+  @Test
+  //Test "Display Text view" button functionality  
+  public  void Display_Text() {
+		 driver.findElementByAccessibilityId("visibleButtonTestCD").click();
+		 assertEquals(driver.findElementById("io.selendroid.testapp:id/visibleTextView").getText(),"Text is sometimes displayed" );
+		 
+	}
+  @Test	
+//Test Touch action  functionality  
+	  public  void Touch_action() {
+		 driver.findElementById("io.selendroid.testapp:id/touchTest").click();
+		 driver.findElementById("io.selendroid.testapp:id/scale_factor_text_view").click();
+		 assertEquals(driver.findElementById("io.selendroid.testapp:id/gesture_type_text_view").getText(),"SINGLE TAP CONFIRMED");
+	 
+	}
+  
+  @Test	
+//Test EN Button  functionality  
+	  public  void EN() {
+	  driver.findElementByAccessibilityId("buttonTestCD").click();
+	  assertTrue(driver.findElementById("android:id/message").isDisplayed());
+		 
+	 
+	}
+
+  @Test
+  //Test Registration using excel data
+  public  void Registration() throws IOException {
+		 driver.findElementByAccessibilityId("startUserRegistrationCD").click();
+		
+		 driver.findElementById("io.selendroid.testapp:id/inputUsername").sendKeys(readData("username"));
+		 driver.findElementById("io.selendroid.testapp:id/inputEmail").sendKeys(readData("email"));
+		 driver.findElementById("io.selendroid.testapp:id/inputPassword").sendKeys(readData("password"));
+		 driver.findElementById("io.selendroid.testapp:id/btnRegisterUser").click();
+		 assertTrue(driver.findElementById("io.selendroid.testapp:id/buttonRegisterUser").isDisplayed());
+		 
+			
+	}
+  //this function to read and get data from excel file called "tofailtest"
+  public  String readData(String data) throws IOException{
+	  
+		String param="";
+		 FileInputStream fis = new FileInputStream("C:/Users/Tofail/Desktop/test.xlsx");
+		 XSSFWorkbook wb = new XSSFWorkbook(fis);
+		 XSSFSheet sheet = wb.getSheetAt(0); 
+		
+		 if (data.equals("username")){
+			 XSSFCell username = sheet.getRow(1).getCell(1);
+			  param=username.getStringCellValue();
+			
+		 }else if (data.equals("email")){
+			 XSSFCell EM = sheet.getRow(1).getCell(2);
+			  param=EM.getStringCellValue();
+			
+		 }else if (data.equals("password")){
+			 
+			 XSSFCell pas = sheet.getRow(1).getCell(3);
+			 param=pas.getStringCellValue();
+			 
+		
+		 }
+		return param;
+  }
+  
+
+ 
 }
