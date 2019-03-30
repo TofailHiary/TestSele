@@ -28,4 +28,3 @@ This created for Test Android app , Selendroid test app
 
 -Each Test annotation has a comment to explain what this test case tests 
 
--
